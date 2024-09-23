@@ -6,7 +6,6 @@ import 'package:test_drive/view_model/playing/now_playing_vm.dart';
 import 'package:test_drive/views/widgets/list_movie_item.dart';
 import 'package:test_drive/views/widgets/movie_horizontal_list_loading_widget.dart';
 
-import '../../../service/remote/api_end_points.dart';
 import '../../../service/response/status.dart';
 
 class HomePlayingScreen extends StatefulWidget{

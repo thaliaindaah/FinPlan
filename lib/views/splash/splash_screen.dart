@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:test_drive/views/dashboard/main_screen.dart';
+// import 'package:test_drive/views/dashboard/main_screen.dart';
+import 'package:test_drive/views/login/finplan_login.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -35,10 +36,13 @@ class _SplashScreen extends State<SplashScreen>{
   }
 
   void _moveToMainScreen(){
-    Navigator.pushReplacementNamed(context, MainScreen.id);
+   Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()),
+);
+
   }
 
   @override
+
   void initState() {
     startSplash();
     super.initState();
@@ -54,7 +58,7 @@ class _SplashScreen extends State<SplashScreen>{
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Image.asset("lib/res/images/cgv_cinema_logo.png"),
+        child: Image.asset("lib/res/images/finplan_logo.png"),
       ),
     );
   }
