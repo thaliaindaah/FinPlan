@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-// import 'package:test_drive/views/dashboard/main_screen.dart';
 import 'package:test_drive/views/login/finplan_login.dart';
 
 class SplashScreen extends StatefulWidget {
