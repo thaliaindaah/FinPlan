@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:test_drive/model/movie/movie.dart';
-import 'package:test_drive/repository/playing/now_playing_repo.dart';
-import 'package:test_drive/utils/constanta.dart';
+import 'package:FinPlan/model/movie/movie.dart';
+import 'package:FinPlan/repository/playing/now_playing_repo.dart';
+import 'package:FinPlan/utils/constanta.dart';
 
 import '../../service/remote/api_end_points.dart';
 import '../../service/remote/base_api_service.dart';

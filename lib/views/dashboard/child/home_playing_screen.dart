@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_drive/model/movie/movie.dart';
-import 'package:test_drive/res/app_context_extension.dart';
-import 'package:test_drive/view_model/playing/now_playing_vm.dart';
-import 'package:test_drive/views/widgets/list_movie_item.dart';
-import 'package:test_drive/views/widgets/movie_horizontal_list_loading_widget.dart';
+import 'package:FinPlan/model/movie/movie.dart';
+import 'package:FinPlan/res/app_context_extension.dart';
+import 'package:FinPlan/view_model/playing/now_playing_vm.dart';
+import 'package:FinPlan/views/widgets/list_movie_item.dart';
+import 'package:FinPlan/views/widgets/movie_horizontal_list_loading_widget.dart';
 
 import '../../../service/response/status.dart';
 

@@ -1,4 +1,4 @@
-import 'package:test_drive/service/response/status.dart';
+import 'package:FinPlan/service/response/status.dart';
 
 class ApiResponse<T>{
   Status? status;

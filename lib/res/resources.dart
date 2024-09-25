@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:test_drive/res/colors/app_colors.dart';
-import 'package:test_drive/res/strings/indonesia_strings.dart';
-import 'package:test_drive/res/strings/strings.dart';
+import 'package:FinPlan/res/colors/app_colors.dart';
+import 'package:FinPlan/res/strings/indonesia_strings.dart';
+import 'package:FinPlan/res/strings/strings.dart';
 
 import 'dimensions/app_dimensions.dart';
 

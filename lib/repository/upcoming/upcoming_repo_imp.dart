@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
-import 'package:test_drive/model/movie/movie.dart';
-import 'package:test_drive/repository/upcoming/upcoming_repo.dart';
-import 'package:test_drive/service/remote/base_api_service.dart';
-import 'package:test_drive/service/remote/network_api_service.dart';
+import 'package:FinPlan/model/movie/movie.dart';
+import 'package:FinPlan/repository/upcoming/upcoming_repo.dart';
+import 'package:FinPlan/service/remote/base_api_service.dart';
+import 'package:FinPlan/service/remote/network_api_service.dart';
 
 import '../../service/remote/api_end_points.dart';
 import '../../utils/constanta.dart';

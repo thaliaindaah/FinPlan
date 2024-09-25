@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_drive/res/app_context_extension.dart';
-import 'package:test_drive/view_model/upcoming/upcoming_vm.dart';
+import 'package:FinPlan/res/app_context_extension.dart';
+import 'package:FinPlan/view_model/upcoming/upcoming_vm.dart';
 
 import '../../../model/movie/movie.dart';
 import '../../../service/response/status.dart';

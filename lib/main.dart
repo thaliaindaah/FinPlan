@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:test_drive/res/app_context_extension.dart';
-import 'package:test_drive/views/dashboard/main_screen.dart';
-import 'package:test_drive/views/splash/splash_screen.dart';
+import 'package:FinPlan/res/app_context_extension.dart';
+import 'package:FinPlan/views/dashboard/main_screen.dart';
+import 'package:FinPlan/views/splash/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());

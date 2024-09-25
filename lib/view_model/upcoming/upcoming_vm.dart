@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:test_drive/repository/upcoming/upcoming_repo.dart';
-import 'package:test_drive/repository/upcoming/upcoming_repo_imp.dart';
-import 'package:test_drive/service/response/api_response.dart';
+import 'package:FinPlan/repository/upcoming/upcoming_repo.dart';
+import 'package:FinPlan/repository/upcoming/upcoming_repo_imp.dart';
+import 'package:FinPlan/service/response/api_response.dart';
 
 import '../../model/movie/movie.dart';
 

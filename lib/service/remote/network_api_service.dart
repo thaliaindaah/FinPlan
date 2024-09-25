@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:test_drive/service/exception/api_exception.dart';
-import 'package:test_drive/service/exception/base_exception.dart';
-import 'package:test_drive/service/remote/api_end_points.dart';
-import 'package:test_drive/service/remote/base_api_service.dart';
+import 'package:FinPlan/service/exception/api_exception.dart';
+import 'package:FinPlan/service/exception/base_exception.dart';
+import 'package:FinPlan/service/remote/api_end_points.dart';
+import 'package:FinPlan/service/remote/base_api_service.dart';
 
 class NetworkApiService extends BaseApiService{
 

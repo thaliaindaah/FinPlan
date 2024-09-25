@@ -1,7 +1,8 @@
 import 'dart:ui';
 
+// ignore: implementation_imports
 import 'package:flutter/src/material/colors.dart';
-import 'package:test_drive/res/colors/base_colors.dart';
+import 'package:FinPlan/res/colors/base_colors.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class AppColors implements BaseColors {
