@@ -1,4 +1,4 @@
-import 'package:FinPlan/res/strings/strings.dart';
+import 'package:test_drive/res/strings/strings.dart';
 
 class IndonesiaStrings extends Strings{
   @override

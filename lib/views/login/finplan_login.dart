@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:FinPlan/views/registrasi/finplan_registrasi.dart';
-import 'package:FinPlan/views/forgot password/finplan_forgot_password.dart';
-import 'package:FinPlan/views/dashboard/main_screen.dart';
+import 'package:test_drive/views/registrasi/finplan_registrasi.dart';
+import 'package:test_drive/views/forgot password/finplan_forgot_password.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -19,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
       _formKey.currentState!.save();
       // Here you would usually call your authentication method
       print('Email: $_email, Password: $_password');
-      Navigator.push(context, MaterialPageRoute(builder: (context) => MainScreen()));
+      // Implement your login logic here
     }
   }
 

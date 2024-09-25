@@ -1,6 +1,7 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:FinPlan/res/app_context_extension.dart';
+import 'package:test_drive/res/app_context_extension.dart';
 
 class LoadingBannerWidget extends StatelessWidget {
   const LoadingBannerWidget({Key? key}) : super(key: key);

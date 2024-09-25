@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:FinPlan/res/app_context_extension.dart';
+import 'package:test_drive/res/app_context_extension.dart';
 
 class MovieHorizontalListLoadingWidget extends StatelessWidget{
   const MovieHorizontalListLoadingWidget({Key? key}) : super(key: key);

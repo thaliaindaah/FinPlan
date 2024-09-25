@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
-import 'package:FinPlan/model/movie/movie.dart';
-import 'package:FinPlan/repository/popular/popular_repo.dart';
-import 'package:FinPlan/service/remote/api_end_points.dart';
-import 'package:FinPlan/service/remote/base_api_service.dart';
-import 'package:FinPlan/service/remote/network_api_service.dart';
-import 'package:FinPlan/utils/constanta.dart';
+import 'package:test_drive/model/movie/movie.dart';
+import 'package:test_drive/repository/popular/popular_repo.dart';
+import 'package:test_drive/service/remote/api_end_points.dart';
+import 'package:test_drive/service/remote/base_api_service.dart';
+import 'package:test_drive/service/remote/network_api_service.dart';
+import 'package:test_drive/utils/constanta.dart';
 
 class PopularRepoImp implements PopularRepo{
 

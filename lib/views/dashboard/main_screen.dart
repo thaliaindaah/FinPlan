@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:FinPlan/views/dashboard/home_screen.dart';
-import 'package:FinPlan/views/dashboard/more_screen.dart';
-import 'package:FinPlan/views/dashboard/ticket_screen.dart';
+import 'package:test_drive/res/app_context_extension.dart';
+import 'package:test_drive/views/dashboard/fast_order_screen.dart';
+import 'package:test_drive/views/dashboard/home_screen.dart';
+import 'package:test_drive/views/dashboard/more_screen.dart';
+import 'package:test_drive/views/dashboard/profile_screen.dart';
+import 'package:test_drive/views/dashboard/ticket_screen.dart';
 
 class MainScreen extends StatefulWidget{
 
@@ -20,6 +23,8 @@ class _MainScreen extends State<MainScreen>{
   static const List<Widget> _screenList = [
     HomeScreen(),
     TicketScreen(),
+    FastOrderScreen(),
+    ProfileScreen(),
     MoreScreen()
   ];
 
@@ -33,28 +38,46 @@ class _MainScreen extends State<MainScreen>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: SizedBox(
+          height: context.resources.dimension.size75,
+          width: context.resources.dimension.size75,
+          child: Image.asset("lib/res/images/cgv_logo.png"),
+        ),
+        actions: [
+          IconButton(onPressed: (){}, icon: const Icon(Icons.qr_code_2, color: Colors.black,))
+        ],
+        backgroundColor: context.resources.color.backgroundColor,
+        ),
       body: _screenList.elementAt(_selectIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Dashboard'
+            label: 'Home'
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.add),
-              label: 'Add'
+              icon: Icon(Icons.airplane_ticket),
+              label: 'Ticket'
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.manage_accounts_outlined),
-              label: 'Account'
+              icon: Icon(Icons.fastfood),
+              label: 'Fast Order'
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.people),
+              label: 'MyCgv'
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.more),
+              label: 'More'
           )
         ],
         currentIndex: _selectIndex,
-        selectedItemColor: Colors.pink[100],
-        unselectedItemColor: Colors.white,
+        selectedItemColor: context.resources.color.redColor,
+        unselectedItemColor: context.resources.color.grayX11Color,
         onTap: _onItemTapped,
-        backgroundColor: Color.fromRGBO(59, 118, 34, 1),
       ),
     );
   }

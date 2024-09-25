@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:FinPlan/res/app_context_extension.dart';
-import 'package:FinPlan/view_model/promotion/promotion_vm.dart';
+import 'package:test_drive/res/app_context_extension.dart';
+import 'package:test_drive/view_model/promotion/promotion_vm.dart';
 
 import '../../../model/promotion/promotion.dart';
 

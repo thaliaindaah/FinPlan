@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:FinPlan/model/movie/movie.dart';
-import 'package:FinPlan/res/app_context_extension.dart';
+import 'package:test_drive/model/movie/movie.dart';
+import 'package:test_drive/res/app_context_extension.dart';
 
 import '../../service/remote/api_end_points.dart';
 
