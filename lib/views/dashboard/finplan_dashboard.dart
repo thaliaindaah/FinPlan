@@ -50,12 +50,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             const SizedBox(height: 15),
             const Text(
-              'Belum ada anggaran',
+              'Belum Ada Rencana Anggaran',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 25),
             const Text(
-              'Buat anggaran dan lihat trend pengeluaranmu setelahnya',
+              'Buat anggaran dan lihat trend pengeluaranmu sekarang!',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               textAlign: TextAlign.center
             ),
