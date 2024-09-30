@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_drive/views/add%20plan/finplan_add_plan.dart';
 import 'package:test_drive/views/dashboard/ticket_screen.dart';
 import 'package:test_drive/views/profile/finplan_profile.dart';
 
@@ -15,7 +16,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   // Include ProfileScreen and any additional screens here
   static final List<Widget> _screenList = [
     HomeScreen(),// Replace with your home screen widget
-    const TicketScreen(), // Replace with your add plan screen widget
+    AddPlan(), // Replace with your add plan screen widget
     FinPlanProfile(),
   ];
 
