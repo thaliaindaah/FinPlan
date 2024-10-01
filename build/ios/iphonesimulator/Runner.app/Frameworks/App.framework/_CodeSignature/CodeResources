@@ -10,11 +10,11 @@
 		</data>
 		<key>flutter_assets/AssetManifest.bin</key>
 		<data>
-		PPg6QyxVFNUWVDX/iqTizbuQT48=
+		PG7Iou7ZnJA/0Jjl8ideLDG5foc=
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		YRXJ5WZITklhJW3RlCvDz96Gsts=
+		CYj1SUFA9e7KK1YppUwp8P2cvgc=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>flutter_assets/NOTICES.Z</key>
 		<data>
-		6ZdbRn9jHx0u19vGaSOwfWXee48=
+		raMbSyBSLnR9zwYBRZHp3LRt8bo=
 		</data>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		8ABT9dvJ3tTx7zLD8bxop+QPOwQ=
+		5rTNrSjr0iMp3PL6UUj3ckyk2HU=
 		</data>
 		<key>flutter_assets/lib/res/assets/banner_not_found.json</key>
 		<data>
@@ -55,6 +55,10 @@
 		<key>flutter_assets/lib/res/images/finplan_ic_back.png</key>
 		<data>
 		0J8OH41sc2OErRMHNbQljb4Mut8=
+		</data>
+		<key>flutter_assets/lib/res/images/finplan_ic_no_budget.png</key>
+		<data>
+		rlko8nB9HkdFCbMcAdaiZFWsqEs=
 		</data>
 		<key>flutter_assets/lib/res/images/finplan_logo.png</key>
 		<data>
@@ -171,14 +175,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			d9s3nOAzr+/zNyGKYwP4AQzmZWk5e0jCTHwGBr9u2Dc=
+			Hr9hwsOx3j7nmFi/R1Qp0ZRSsbAvjUItWXF9emkCVag=
 			</data>
 		</dict>
 		<key>flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			GvTI9m/Juf0orQS0fkdcz9sq0Mq9W4WHHiU9wpC8F4c=
+			qASnZYB7P8CMfqRQ0oKGaAr4EOuPjDOU4PEOD3QC/ao=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -192,7 +196,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			KP3CLPLrhB6HqOzr6n2MD0GrIziKE9lSqEefHLajOxI=
+			FSq0YPtlw5c0p2CVFPKwMr7Om5exKgiYd1GA8rMhfnA=
 			</data>
 		</dict>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
@@ -213,7 +217,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ekWSne0ER/e0PouMZC3+ziqSCG55MXUP7Xe76oOnvuw=
+			eQkI5+sCuesYpiVWc9IdSnh1+xEG1oHOpnqaIMRfzmk=
 			</data>
 		</dict>
 		<key>flutter_assets/lib/res/assets/banner_not_found.json</key>
@@ -249,6 +253,13 @@
 			<key>hash2</key>
 			<data>
 			uXl2YJSYO6Yfju3AtUjdgbqjZRmRDZNiucFLZe19di8=
+			</data>
+		</dict>
+		<key>flutter_assets/lib/res/images/finplan_ic_no_budget.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			5g6KBLvAJJhppKTkombEjqGY4lzK7vD4f4C3F5cWLzk=
 			</data>
 		</dict>
 		<key>flutter_assets/lib/res/images/finplan_logo.png</key>

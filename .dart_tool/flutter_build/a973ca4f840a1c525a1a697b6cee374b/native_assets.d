@@ -1,0 +1,1 @@
+ /Users/Thalia/Desktop/FinPlan/FinPlan/.dart_tool/flutter_build/a973ca4f840a1c525a1a697b6cee374b/native_assets.yaml: 
