@@ -1,24 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:test_drive/views/login/finplan_login.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  _RegisterPage createState() => _RegisterPage();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _RegisterPage extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
-  String? _email;
-  String? _password;
-  // ignore: unused_field
-  String? _confirmPassword;
-  String? _name;
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
-  void _register() {
+  Future<void> _register() async {
     if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      print('Name: $_name, Email: $_email, Password: $_password');
+      // Add user data to Firestore
+      await FirebaseFirestore.instance.collection('users').add({
+        'name': _nameController.text,
+        'email': _emailController.text,
+        'password': _passwordController.text, // Store hashed password in production
+      });
+
+      // Clear the text fields
+      _nameController.clear();
+      _emailController.clear();
+      _passwordController.clear();
+      _confirmPasswordController.clear();
+
+      // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Registration successful!')),
+        SnackBar(content: Text('User registered successfully!')),
+      );
+      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage())
       );
     }
   }
@@ -40,7 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
         ),
       ),
-      body: Padding( // Wrap the body in SingleChildScrollView
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Form(
           key: _formKey,
@@ -51,7 +66,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: Image.asset(
                   'lib/res/images/finplan_logo.png',
                   height: 250,
-                  width: 290
+                  width: 290,
                 ),
               ),
               const Center(
@@ -65,6 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               const SizedBox(height: 20),
               TextFormField(
+                controller: _nameController,
                 decoration: InputDecoration(
                   labelText: 'Nama',
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
@@ -79,10 +95,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   }
                   return null;
                 },
-                onSaved: (value) => _name = value,
               ),
               const SizedBox(height: 20),
               TextFormField(
+                controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
@@ -101,10 +117,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   }
                   return null;
                 },
-                onSaved: (value) => _email = value,
               ),
               const SizedBox(height: 20),
               TextFormField(
+                controller: _passwordController,
                 decoration: InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
@@ -118,12 +134,15 @@ class _RegisterPageState extends State<RegisterPage> {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your password';
                   }
+                  if (value.length < 6) {
+                    return 'Password must be at least 6 characters';
+                  }
                   return null;
                 },
-                onSaved: (value) => _password = value,
               ),
               const SizedBox(height: 20),
               TextFormField(
+                controller: _confirmPasswordController,
                 decoration: InputDecoration(
                   labelText: 'Konfirmasi Password',
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
@@ -137,12 +156,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   if (value == null || value.isEmpty) {
                     return 'Please confirm your password';
                   }
-                  if (value != _password) {
+                  if (value != _passwordController.text) {
                     return 'Passwords do not match';
                   }
                   return null;
                 },
-                onSaved: (value) => _confirmPassword = value,
               ),
               const SizedBox(height: 35),
               Center(
@@ -159,7 +177,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:test_drive/views/dashboard/finplan_dashboard.dart';
 import 'package:test_drive/views/registrasi/finplan_registrasi.dart';
@@ -14,13 +15,42 @@ class _LoginPageState extends State<LoginPage> {
   String? _email;
   String? _password;
 
-  void _login() {
+  Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      // Here you would usually call your authentication method
-      print('Email: $_email, Password: $_password');
-      // Implement your login logic here
-      Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+       try {
+      // Query Firestore for user by email
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: _email)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        var userData = querySnapshot.docs.first.data() as Map<String, dynamic>;
+        
+        // Check if the password matches
+        if (userData['password'] == _password) {
+           // Navigate to Dashboard on successful login
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => DashboardScreen()),
+            );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Incorrect password!')),
+          );
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('User not found!')),
+        );
+      }
+    } catch (e) {
+      print('Error retrieving user: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error retrieving user: $e')),
+      );
+    }
     }
   }
 
@@ -34,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
       ),
@@ -45,9 +75,9 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               Image.asset(
-                'lib/res/images/finplan_logo.png', // Ganti dengan path gambar Anda
-                height:250, // Tinggi gambar
-                width: 290, // Lebar gambar
+                'lib/res/images/finplan_logo.png',
+                height: 250,
+                width: 290,
               ),
               const Text(
                 'LOGIN',
@@ -55,13 +85,19 @@ class _LoginPageState extends State<LoginPage> {
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
-              ), 
+              ),
               const SizedBox(height: 20),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Email', border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)), 
-                focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(230, 244, 241, 1))),
-                enabledBorder: const OutlineInputBorder( borderSide: BorderSide(color: Color.fromRGBO(230, 244, 241, 1), width: 1.0)),
-                fillColor: const Color.fromRGBO(230, 244, 241, 1), filled: true),
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                  focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Color.fromRGBO(230, 244, 241, 1))),
+                  enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Color.fromRGBO(230, 244, 241, 1), width: 1.0)),
+                  fillColor: const Color.fromRGBO(230, 244, 241, 1),
+                  filled: true,
+                ),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -76,10 +112,16 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Password', border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)), 
-                focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(230, 244, 241, 1))),
-                enabledBorder: const OutlineInputBorder( borderSide: BorderSide(color: Color.fromRGBO(230, 244, 241, 1), width: 1.0)),
-                fillColor: const Color.fromRGBO(230, 244, 241, 1), filled: true),
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                  focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Color.fromRGBO(230, 244, 241, 1))),
+                  enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Color.fromRGBO(230, 244, 241, 1), width: 1.0)),
+                  fillColor: const Color.fromRGBO(230, 244, 241, 1),
+                  filled: true,
+                ),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -90,37 +132,48 @@ class _LoginPageState extends State<LoginPage> {
                 onSaved: (value) => _password = value,
               ),
               const SizedBox(height: 10),
-              Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                TextButton(onPressed: _forgotPassword,
-                style: TextButton.styleFrom(
-                foregroundColor: const Color.fromRGBO(151, 151, 151, 1),
-                textStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-              ), 
-                child: const Text('Lupa Password?')),
-              ]),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: _forgotPassword,
+                    style: TextButton.styleFrom(
+                      foregroundColor: const Color.fromRGBO(151, 151, 151, 1),
+                      textStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                    ),
+                    child: const Text('Lupa Password?'),
+                  ),
+                ],
+              ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _login,
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, fixedSize: const Size(220, 50),
+                  foregroundColor: Colors.white,
+                  fixedSize: const Size(220, 50),
                   backgroundColor: const Color.fromRGBO(59, 118, 34, 1),
                   textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                child: const Text('Login'), 
+                child: const Text('Login'),
               ),
-               const SizedBox(height: 20),
-               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                 const Text('Belum Punya Akun?'),
-                 TextButton(onPressed: _register,
-                 style: TextButton.styleFrom(
-                 foregroundColor: const Color.fromRGBO(151, 151, 151, 1),
-                 textStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-                 ), child: 
-                 const Text('Daftar Sekarang')),
-               ]),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Belum Punya Akun?'),
+                  TextButton(
+                    onPressed: _register,
+                    style: TextButton.styleFrom(
+                      foregroundColor: const Color.fromRGBO(151, 151, 151, 1),
+                      textStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                    ),
+                    child: const Text('Daftar Sekarang'),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
