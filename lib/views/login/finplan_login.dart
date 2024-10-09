@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:test_drive/views/dashboard/finplan_dashboard.dart';
 import 'package:test_drive/views/registrasi/finplan_registrasi.dart';
 import 'package:test_drive/views/forgot password/finplan_forgot_password.dart';
+import 'dart:convert';
+// ignore: depend_on_referenced_packages
+import 'package:crypto/crypto.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,6 +17,12 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   String? _email;
   String? _password;
+
+  String hashPassword(String password) {
+  var bytes = utf8.encode(password); // Convert password to bytes
+  var digest = sha256.convert(bytes); // Hash the bytes
+  return digest.toString(); // Return the hash as a string
+}
 
   Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
@@ -29,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
         var userData = querySnapshot.docs.first.data() as Map<String, dynamic>;
         
         // Check if the password matches
-        if (userData['password'] == _password) {
+        if (userData['password'] == hashPassword(_password!)) {
            // Navigate to Dashboard on successful login
             Navigator.pushReplacement(
               context,

@@ -1,3 +1,6 @@
+import 'dart:convert';
+// ignore: depend_on_referenced_packages
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:test_drive/views/login/finplan_login.dart';
@@ -14,13 +17,21 @@ class _RegisterPage extends State<RegisterPage> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
+  String hashPassword(String password) {
+  var bytes = utf8.encode(password); // Convert password to bytes
+  var digest = sha256.convert(bytes); // Hash the bytes
+  return digest.toString(); // Return the hash as a string
+}
+
+
   Future<void> _register() async {
     if (_formKey.currentState!.validate()) {
+      String hashedPassword = hashPassword(_passwordController.text);
       // Add user data to Firestore
       await FirebaseFirestore.instance.collection('users').add({
         'name': _nameController.text,
         'email': _emailController.text,
-        'password': _passwordController.text, // Store hashed password in production
+        'password': hashedPassword, // Store hashed password in production
       });
 
       // Clear the text fields
