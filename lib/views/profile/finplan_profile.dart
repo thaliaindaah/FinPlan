@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:test_drive/views/login/finplan_login.dart';
 
 class FinPlanProfile extends StatelessWidget {
-  final String name = "Thalia";
-  final String email = "thalia@mail.com";
+  final String name;
+  final String email;
 
-  void _logout() {
-    // Add logout functionality here
+  const FinPlanProfile({Key? key, required this.name, required this.email}) : super(key: key);
+
+  Future<void> _logout(BuildContext context) async {
+    // Clear user data from Shared Preferences
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+
+    // Navigate back to the login screen
+    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage())
+      );
   }
 
   void _deleteAccount() {
@@ -44,7 +54,7 @@ class FinPlanProfile extends StatelessWidget {
             Text(email, style: const TextStyle(fontSize: 16)),
             const SizedBox(height: 150),
             ElevatedButton(
-            onPressed: _logout,
+            onPressed: () => _logout(context),
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
               fixedSize: const Size(220, 50),

@@ -4,6 +4,7 @@ import 'package:test_drive/views/dashboard/finplan_dashboard.dart';
 import 'package:test_drive/views/registrasi/finplan_registrasi.dart';
 import 'package:test_drive/views/forgot password/finplan_forgot_password.dart';
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 // ignore: depend_on_referenced_packages
 import 'package:crypto/crypto.dart';
 
@@ -36,6 +37,10 @@ class _LoginPageState extends State<LoginPage> {
 
       if (querySnapshot.docs.isNotEmpty) {
         var userData = querySnapshot.docs.first.data() as Map<String, dynamic>;
+
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString("name", userData['name']);
+        await prefs.setString("email", userData['email']);
         
         // Check if the password matches
         if (userData['password'] == hashPassword(_password!)) {
