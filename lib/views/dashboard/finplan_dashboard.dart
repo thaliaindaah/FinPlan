@@ -29,12 +29,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
     // Update the screen list with the latest stored values
     _screenList = [
       HomeScreen(storedValue: name), // Pass the name to HomeScreen
-      AddPlan(), // Your add plan screen widget
+      AddPlan(fromButtonX: false), // Your add plan screen widget
       FinPlanProfile(name: name, email: email), // Pass name and email to FinPlanProfile
     ];
   });
 }
-
 
   Future<Map<String, String?>> getUserPreferences() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -86,6 +85,10 @@ class HomeScreen extends StatelessWidget {
 
   const HomeScreen({Key? key, required this.storedValue}) : super(key: key);
 
+  void _navigateToAddPlan(BuildContext context) async {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const AddPlan(fromButtonX: true)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,7 +136,9 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                _navigateToAddPlan(context);
+              },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
                 fixedSize: const Size(220, 50),

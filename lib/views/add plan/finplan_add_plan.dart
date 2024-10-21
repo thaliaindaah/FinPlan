@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddPlan extends StatefulWidget {
-  const AddPlan({Key? key}) : super(key: key);
+  final bool fromButtonX;
+  const AddPlan({Key? key, required this.fromButtonX}) : super(key: key);
 
   @override
   State<AddPlan> createState() => _AddPlanScreenState();
@@ -13,9 +14,16 @@ class AddPlan extends StatefulWidget {
 class _AddPlanScreenState extends State<AddPlan> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _textController = TextEditingController();
-  String? _selectedOption;
-  final List<String> _options = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'];
 
+  String? _selectedPlan;
+  String? _selectedCategory;
+  String? _selectedCurrency;
+
+  final List<String> _optionsCurrency = ['IDR', 'USD', 'EUR', 'JPY', 'CNY', 'GBP', 'INR'];
+  final List<String> _optionsPlan = ['Pendapatan', 'Pengeluaran', 'Tabungan'];
+  final List<String> _optionsIncomeCategory = ['Gaji', 'Hadiah', 'Lainnya'];
+  final List<String> _optionsExpenseCategory = ['Makanan', 'Transportasi', 'Kesehatan', 'Pendidikan', 'Belanja', 'Hiburan', 'Keluarga', 'Tagihan', 'Lainnya'];
+  final List<String> _optionsSavingCategory = ['Makanan', 'Transportasi', 'Kesehatan', 'Pendidikan', 'Belanja', 'Hiburan', 'Keluarga', 'Tagihan', 'Lainnya'];
   DateTime? _selectedDate;
 
   Future<void> _selectDate(BuildContext context) async {
@@ -46,10 +54,21 @@ class _AddPlanScreenState extends State<AddPlan> {
   }
 
    Widget build(BuildContext context) {
+
+    List<String> _options;
+    if (_selectedPlan == 'Pendapatan') {
+      _options = _optionsIncomeCategory;
+    } else if (_selectedPlan == 'Pengeluaran') {
+      _options = _optionsExpenseCategory;
+    } else {
+      _options = _optionsSavingCategory; // No categories for Saving
+    }
+
+
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text('Add Plan'),
+        automaticallyImplyLeading: widget.fromButtonX,
+        title: const Text('Add Plan'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -69,11 +88,11 @@ class _AddPlanScreenState extends State<AddPlan> {
                   enabledBorder: const OutlineInputBorder( borderSide: BorderSide(color: Color.fromRGBO(230, 244, 241, 1), width: 1.0)),
                   fillColor: const Color.fromRGBO(230, 244, 241, 1), filled: true
                   ),
-                value: _selectedOption,
+                value: _selectedCurrency,
                 hint: Text('Kurs'),
                 onChanged: (String? newValue) {
                   setState(() {
-                    _selectedOption = newValue; // Update the selected value
+                    _selectedCurrency = newValue; // Update the selected value
                   });
                 },
                 validator: (value) {
@@ -82,7 +101,7 @@ class _AddPlanScreenState extends State<AddPlan> {
                   }
                   return null;
                 },
-                items: _options.map<DropdownMenuItem<String>>((String value) {
+                items: _optionsCurrency.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
@@ -102,11 +121,12 @@ class _AddPlanScreenState extends State<AddPlan> {
                   enabledBorder: const OutlineInputBorder( borderSide: BorderSide(color: Color.fromRGBO(230, 244, 241, 1), width: 1.0)),
                   fillColor: const Color.fromRGBO(230, 244, 241, 1), filled: true
                   ),
-                value: _selectedOption,
+                value: _selectedPlan,
                 hint: Text('Rencana'),
                 onChanged: (String? newValue) {
                   setState(() {
-                    _selectedOption = newValue; // Update the selected value
+                    _selectedPlan = newValue; // Update the selected value
+                    _selectedCategory = null;
                   });
                 },
                 validator: (value) {
@@ -115,7 +135,7 @@ class _AddPlanScreenState extends State<AddPlan> {
                   }
                   return null;
                 },
-                items: _options.map<DropdownMenuItem<String>>((String value) {
+                items: _optionsPlan.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
@@ -142,11 +162,11 @@ class _AddPlanScreenState extends State<AddPlan> {
                   enabledBorder: const OutlineInputBorder( borderSide: BorderSide(color: Color.fromRGBO(230, 244, 241, 1), width: 1.0)),
                   fillColor: const Color.fromRGBO(230, 244, 241, 1), filled: true
                   ),
-                value: _selectedOption,
+                value: _selectedCategory,
                 hint: Text('Kategori'),
                 onChanged: (String? newValue) {
                   setState(() {
-                    _selectedOption = newValue; // Update the selected value
+                    _selectedCategory = newValue; // Update the selected value
                   });
                 },
                 validator: (value) {

@@ -22,6 +22,16 @@ class FinPlanProfile extends StatelessWidget {
     // Add account deletion functionality here
   }
 
+  String getIntials (String name){
+    List<String> nameParts = name.split(" ");
+    String initials = nameParts[0][0];
+    
+    if (nameParts.length > 1) {
+      initials += nameParts[1][0];
+    }
+    return initials;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,8 +51,8 @@ class FinPlanProfile extends StatelessWidget {
                 border: Border.all(color: Colors.grey, width: 1),
               ),
               alignment: Alignment.center,
-              child: const Text(
-              'T',
+              child: Text(
+              getIntials(name),
               style: TextStyle(
                 fontSize: 80, 
                 fontWeight: FontWeight.bold, 
