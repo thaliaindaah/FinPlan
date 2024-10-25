@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:test_drive/views/dashboard/finplan_dashboard.dart';
+import 'package:test_drive/views/dashboard/main_screen.dart';
 
 class AddPlan extends StatefulWidget {
   final bool fromButtonX;
@@ -14,6 +17,11 @@ class AddPlan extends StatefulWidget {
 class _AddPlanScreenState extends State<AddPlan> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _textController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
+  final TextEditingController _noteController = TextEditingController();
+
+
+  String? image;
 
   String? _selectedPlan;
   String? _selectedCategory;
@@ -52,6 +60,24 @@ class _AddPlanScreenState extends State<AddPlan> {
       });
     }
   }
+
+  Future<void> addPlan() async {
+  try {
+    await FirebaseFirestore.instance.collection('plan').add({
+      'amount': double.tryParse(_amountController.text) ?? 0.0, // Convert to double
+      'category': _selectedCategory,
+      'currency': _selectedCurrency,
+      'date': _textController.text,
+      'image': _image?.path, // Use the file path or null
+      'note': _noteController.text,
+      'plan': _selectedPlan,
+    });
+    print("Success save");
+    Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+  } catch (e) {
+    print("Error adding plan: $e");
+  }
+}
 
    Widget build(BuildContext context) {
 
@@ -144,6 +170,7 @@ class _AddPlanScreenState extends State<AddPlan> {
               ),
               SizedBox(height: 20),
               TextFormField(
+                controller: _amountController,
                 decoration: InputDecoration(labelText: 'Jumlah', border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)), 
                 focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(230, 244, 241, 1))),
                 enabledBorder: const OutlineInputBorder( borderSide: BorderSide(color: Color.fromRGBO(230, 244, 241, 1), width: 1.0)),
@@ -154,7 +181,7 @@ class _AddPlanScreenState extends State<AddPlan> {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color.fromRGBO(230, 244, 241, 1),
                     )
                   ),
@@ -163,7 +190,7 @@ class _AddPlanScreenState extends State<AddPlan> {
                   fillColor: const Color.fromRGBO(230, 244, 241, 1), filled: true
                   ),
                 value: _selectedCategory,
-                hint: Text('Kategori'),
+                hint: const Text('Kategori'),
                 onChanged: (String? newValue) {
                   setState(() {
                     _selectedCategory = newValue; // Update the selected value
@@ -182,14 +209,15 @@ class _AddPlanScreenState extends State<AddPlan> {
                   );
                 }).toList(),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
+                controller: _noteController,
                 decoration: InputDecoration(labelText: 'Note', border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)), 
                 focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(230, 244, 241, 1))),
                 enabledBorder: const OutlineInputBorder( borderSide: BorderSide(color: Color.fromRGBO(230, 244, 241, 1), width: 1.0)),
                 fillColor: const Color.fromRGBO(230, 244, 241, 1), filled: true),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
                 controller: _textController,
                 readOnly: true, // Prevent manual input
@@ -215,7 +243,7 @@ class _AddPlanScreenState extends State<AddPlan> {
                 width: 200,
                 height: 200,
                 child:_image == null
-                  ? Column(
+                  ? const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.add_a_photo, size: 50, color: Colors.grey),
@@ -235,7 +263,7 @@ class _AddPlanScreenState extends State<AddPlan> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: addPlan,
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white, fixedSize: const Size(400, 50),
                   backgroundColor: const Color.fromRGBO(59, 118, 34, 1),
