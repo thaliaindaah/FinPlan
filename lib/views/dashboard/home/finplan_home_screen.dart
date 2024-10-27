@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:test_drive/views/add%20plan/finplan_add_plan.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:test_drive/views/add%20plan/finplan_detail_plan.dart';
+import 'package:test_drive/views/report/finplan_detail_report.dart';
 
 class FinplanHomeScreen extends StatelessWidget {
   const FinplanHomeScreen({Key? key, required this.storedValue}) : super(key: key);
@@ -127,24 +129,6 @@ class FinPlanHomeScreenShowPlan extends StatelessWidget {
       DateTime(2023, 4, 4),
       DateTime(2023, 5, 5),
     ];
-
-  //  List<double> spendingData = listItems?.map((doc) {
-  //   var spendingValue = doc['amount'];
-  //     if (spendingValue is String) {
-  //       return double.tryParse(spendingValue) ?? 0.0; // Use a default value if parsing fails
-  //     } else if (spendingValue is double) {
-  //       return spendingValue;
-  //     }
-  //     return 0.0; // Default value for unexpected types
-  //   }).toList() ?? [];
-  //   List<DateTime> dates = [
-  //     for (var item in listItems ?? [])
-  //       (item['date'] as String).isNotEmpty ? DateTime.parse(item['date']) : DateTime.now(),
-  //   ];
-
-    // double maxValue = spendingData.isNotEmpty ? spendingData.reduce((a, b) => a > b ? a : b) : 0;
-    // double dynamicHeight = maxValue > 0 ? maxValue * 10 : 120;
-
     // Calculate totals based on type
     if (listItems != null) {
       for (var item in listItems!) {
@@ -192,6 +176,7 @@ class FinPlanHomeScreenShowPlan extends StatelessWidget {
         child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -205,7 +190,14 @@ class FinPlanHomeScreenShowPlan extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 16), 
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                     Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const FinplanDetailPlan(),
+                    ),
+                    );
+                  },
                   child: const Text(
                     'Lihat Semua',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color.fromRGBO(59, 118, 34, 1)),
@@ -226,13 +218,40 @@ class FinPlanHomeScreenShowPlan extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Saldo Saat Ini',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+              Row(
+                children: [
+                  Image.asset(
+                    'lib/res/images/finplan_ic_no_budget.png', // Replace with your image path
+                    width: 25,
+                    height: 25,
+                  ),
+                  const SizedBox(width: 5), // Add space between the image and the text
+                  const Text(
+                    'Saldo Saat Ini',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+                  ),
+                ],
               ),
-              Text(
-                'Rp $formattedResult / Rp $formatedIncome',
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Rp $formattedResult / Rp $formatedIncome',
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                  ),
+                  const SizedBox(width: 8), 
+                  GestureDetector(
+                    onTap: () {
+                      // Add your onTap functionality here
+                    },
+                    child: Image.asset(
+                      'lib/res/images/finplan_ic_eyeshown.png', // Replace with your image path
+                      width: 22,
+                      height: 22,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 10), 
               SizedBox(
@@ -257,7 +276,14 @@ class FinPlanHomeScreenShowPlan extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 16), 
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FinplanDetailReport(),
+                    ),
+                    );
+                  },
                   child: const Text(
                     'Lihat Semua',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color.fromRGBO(59, 118, 34, 1)),
@@ -278,15 +304,25 @@ class FinPlanHomeScreenShowPlan extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Tren Pengeluaran',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+              Row(
+                children: [
+                  Image.asset(
+                    'lib/res/images/finplan_ic_report.png', // Replace with your image path
+                    width: 25,
+                    height: 25,
+                  ),
+                  const SizedBox(width: 5), // Add space between the image and the text
+                  const Text(
+                    'Tren Pengeluaran',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+                  ),
+                ],
               ),
               const SizedBox(height: 20), 
               Expanded(
                 child: LineChart(
                   LineChartData(
-                    gridData: const FlGridData(show: false),
+                    gridData: const FlGridData(show: true),
                     titlesData: FlTitlesData(
                       leftTitles: AxisTitles(
                         sideTitles: SideTitles(
@@ -316,10 +352,10 @@ class FinPlanHomeScreenShowPlan extends StatelessWidget {
                           },
                         ),
                       ),
-                      topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                      rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                      topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                      rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
                     ),
-                    borderData: FlBorderData(show: true),
+                    borderData: FlBorderData(show: false),
                     lineBarsData: [
                       LineChartBarData(
                         spots: List<FlSpot>.generate(spendingData.length, (index) {
@@ -327,7 +363,7 @@ class FinPlanHomeScreenShowPlan extends StatelessWidget {
                           return FlSpot(xValue, spendingData[index]);
                         }),
                         isCurved: true,
-                        color: Color.fromRGBO(59, 118, 34, 1),
+                        color: const Color.fromRGBO(236, 102, 102, 1),
                         dotData: const FlDotData(show: true),
                         belowBarData: BarAreaData(show: false),
                       ),

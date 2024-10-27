@@ -33,13 +33,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
     if (items != null && items.isNotEmpty) {
       _screenList = [
       FinPlanHomeScreenShowPlan(listItems: items, storedValue: name), // Pass the name to HomeScreen
-      AddPlan(fromButtonX: false), // Your add plan screen widget
+      const AddPlan(fromButtonX: false), // Your add plan screen widget
       FinPlanProfile(name: name, email: email), // Pass name and email to FinPlanProfile
     ];
     }else{
       _screenList = [
       FinplanHomeScreen(storedValue: name), // Pass the name to HomeScreen
-      AddPlan(fromButtonX: false), // Your add plan screen widget
+      const AddPlan(fromButtonX: false), // Your add plan screen widget
       FinPlanProfile(name: name, email: email), // Pass name and email to FinPlanProfile
     ];
     }

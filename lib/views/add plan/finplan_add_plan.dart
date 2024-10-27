@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:test_drive/views/dashboard/finplan_dashboard.dart';
-import 'package:test_drive/views/dashboard/main_screen.dart';
 
 class AddPlan extends StatefulWidget {
   final bool fromButtonX;
@@ -93,8 +92,21 @@ class _AddPlanScreenState extends State<AddPlan> {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: widget.fromButtonX,
+        automaticallyImplyLeading: false,
         title: const Text('Add Plan'),
+        leading: widget.fromButtonX
+          ? GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Container(
+                margin: const EdgeInsets.only(left: 20),
+                child: ClipOval(
+                  child: Image.asset('lib/res/images/finplan_ic_back.png'),
+                ),
+              ),
+            )
+         : null,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
