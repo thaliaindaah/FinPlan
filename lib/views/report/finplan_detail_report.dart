@@ -5,10 +5,10 @@ class FinplanDetailReport extends StatelessWidget {
   FinplanDetailReport({Key? key}) : super(key: key);
 
   final List<Map<String, dynamic>> data = [
-    {'category': 'Food', 'value': 40},
-    {'category': 'Transport', 'value': 30},
-    {'category': 'Entertainment', 'value': 20},
-    {'category': 'Others', 'value': 10},
+    {'category': 'Makanan', 'value': 40},
+    {'category': 'Transportasi', 'value': 30},
+    {'category': 'Hiburan', 'value': 20},
+    {'category': 'Lainnya', 'value': 10},
   ];
 
 
@@ -41,13 +41,13 @@ class FinplanDetailReport extends StatelessWidget {
 // Color mapping function
 Color _getCategoryColor(String category) {
   switch (category) {
-    case 'Food':
+    case 'Makanan':
       return Colors.red;
-    case 'Transport':
+    case 'Transportasi':
       return Colors.blue;
-    case 'Entertainment':
+    case 'Hiburan':
       return Colors.green;
-    case 'Others':
+    case 'Belanja':
       return Colors.orange;
     default:
       return Colors.grey;
@@ -198,10 +198,9 @@ Color _getCategoryColor(String category) {
               ],
             ),
           ),
-          const SizedBox(height: 20), // Add space between charts
           Container(
             width: double.infinity,
-            height: 300, // Set desired height for pie chart
+            height: 270, // Set desired height for pie chart
             padding: const EdgeInsets.all(16.0),
             margin: const EdgeInsets.symmetric(vertical: 16.0),
             decoration: BoxDecoration(
@@ -229,7 +228,6 @@ Color _getCategoryColor(String category) {
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
                 Expanded(
                   child: Row(
                     children: [
@@ -237,7 +235,7 @@ Color _getCategoryColor(String category) {
                         child: PieChart(
                           PieChartData(
                             sections: showingSections(),
-                            centerSpaceRadius: 40,
+                            centerSpaceRadius: 45,
                             borderData: FlBorderData(show: false),
                             centerSpaceColor: Colors.transparent,
                           ),

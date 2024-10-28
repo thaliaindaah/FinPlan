@@ -89,7 +89,7 @@ class _ForgotPassPage extends State<ForgotPassPage> {
               ),
               SizedBox(height: 20),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Confirm Password', border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)), 
+                decoration: InputDecoration(labelText: 'Konfirmasi Password', border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)), 
                 focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: const Color.fromRGBO(230, 244, 241, 1))),
                 enabledBorder: OutlineInputBorder( borderSide: BorderSide(color: const Color.fromRGBO(230, 244, 241, 1), width: 1.0)),
                 fillColor: const Color.fromRGBO(230, 244, 241, 1), filled: true),

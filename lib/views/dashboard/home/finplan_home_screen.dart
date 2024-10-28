@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:test_drive/views/add%20plan/finplan_add_plan.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:test_drive/views/add%20plan/finplan_detail_plan.dart';
+import 'package:test_drive/views/notifikasi/finplan_notifikasi_page.dart';
 import 'package:test_drive/views/report/finplan_detail_report.dart';
 
 class FinplanHomeScreen extends StatelessWidget {
@@ -32,10 +33,11 @@ class FinplanHomeScreen extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            IconButton(
+           IconButton(
               icon: const Icon(Icons.notifications),
               onPressed: () {
                 // Add notification functionality here
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const FinplanNotifikasiPage()));
               },
             ),
           ],
@@ -269,7 +271,7 @@ class FinPlanHomeScreenShowPlan extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.all(16.0), 
                 child: Text(
-                  'Laporan',
+                  'Report',
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -295,7 +297,7 @@ class FinPlanHomeScreenShowPlan extends StatelessWidget {
           Container(
           width: dynamicWidth,
           height: 500,
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0, bottom: 0.0),
           margin: const EdgeInsets.symmetric(horizontal: 16.0),
           decoration: BoxDecoration(
             color: const Color.fromRGBO(255, 223, 70, 0.58), 
