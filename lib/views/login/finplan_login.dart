@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_drive/views/dashboard/finplan_dashboard.dart';
 import 'package:test_drive/views/registrasi/finplan_registrasi.dart';
 import 'package:test_drive/views/forgot password/finplan_forgot_password.dart';
-import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-// ignore: depend_on_referenced_packages
-import 'package:crypto/crypto.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   // ignore: library_private_types_in_public_api
   _LoginPageState createState() => _LoginPageState();
@@ -16,55 +16,48 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   String? _email;
   String? _password;
-
-  String hashPassword(String password) {
-  var bytes = utf8.encode(password); // Convert password to bytes
-  var digest = sha256.convert(bytes); // Hash the bytes
-  return digest.toString(); // Return the hash as a string
-}
 
   Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-       try {
-      // Query Firestore for user by email
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .where('email', isEqualTo: _email)
-          .get();
+      try {
+        await _auth.signInWithEmailAndPassword(
+            email: _email!,
+            password: _password!,
+          );
+        User? user = _auth.currentUser;
+        if (user != null) {
+          DocumentSnapshot snapshot = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+          if (snapshot.exists) {
+            var userData = snapshot.data() as Map<String, dynamic>;
+            final SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setString("name", userData['name']);
+            await prefs.setString("email", userData['email']);
 
-      if (querySnapshot.docs.isNotEmpty) {
-        var userData = querySnapshot.docs.first.data() as Map<String, dynamic>;
-
-        final SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString("name", userData['name']);
-        await prefs.setString("email", userData['email']);
-        
-        // Check if the password matches
-        if (userData['password'] == hashPassword(_password!)) {
-           // Navigate to Dashboard on successful login
             Navigator.pushReplacement(
+              // ignore: use_build_context_synchronously
               context,
               MaterialPageRoute(builder: (context) => DashboardScreen()),
             );
-        } else {
+          }else{
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('User not found!')),
+            );
+          }
+        }else{
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Incorrect password!')),
+            const SnackBar(content: Text('Authentication failed!')),
           );
         }
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('User not found!')),
-        );
+      } catch (e) {
+          print('Error: $e');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Login failed: ${e.toString()}')),
+          );
       }
-    } catch (e) {
-      print('Error retrieving user: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error retrieving user: $e')),
-      );
-    }
     }
   }
 

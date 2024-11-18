@@ -1,9 +1,9 @@
 import 'dart:convert';
 // ignore: depend_on_referenced_packages
 import 'package:crypto/crypto.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:test_drive/views/login/finplan_login.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -16,6 +16,7 @@ class _RegisterPage extends State<RegisterPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final _auth = FirebaseAuth.instance;
 
   String hashPassword(String password) {
   var bytes = utf8.encode(password); // Convert password to bytes
@@ -24,29 +25,37 @@ class _RegisterPage extends State<RegisterPage> {
 }
 
 
+
+
   Future<void> _register() async {
-    if (_formKey.currentState!.validate()) {
-      String hashedPassword = hashPassword(_passwordController.text);
-      // Add user data to Firestore
-      await FirebaseFirestore.instance.collection('users').add({
+    try {
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      _saveUserData(userCredential.user);
+    } catch (e) {
+      print('Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Registrasi gagal: ${e.toString()}')),
+      );
+    }
+  }
+
+  Future<void> _saveUserData(User? user) async {
+    String hashedPassword = hashPassword(_passwordController.text);
+    if (user != null) {
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
         'name': _nameController.text,
         'email': _emailController.text,
-        'password': hashedPassword, // Store hashed password in production
+        'password': hashedPassword,
       });
-
-      // Clear the text fields
+    }
+    // Clear the text fields
       _nameController.clear();
       _emailController.clear();
       _passwordController.clear();
       _confirmPasswordController.clear();
-
-      // Show success message
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('User registered successfully!')),
-      );
-      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage())
-      );
-    }
   }
 
   @override
